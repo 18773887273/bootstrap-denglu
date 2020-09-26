@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+	div{
+		height: 50px;				
+	}
+	.seperator{
+		clear:both;
+		height: 10px;	
+	}
+	.blue{
+		background-color: blue;
+	}
+	.red{
+		background-color: red;
+	}
+	.green{
+		background-color: green;
+	}
+</style>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.css" />
+	</head>
+	<body>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3">
+					<from>
+					<fieldset>
+						<legend>登录</legend>
+						<div class="form-group has-success has-feedback">
+							<label for="username" class="control-label">用户名：</label>
+							<input type="text"  id="username" name="username" class="form-control"
+								   placeholder="请输入用户名" />
+							<!--<span class="glyphicon glyphicon-ok form-control-feedback" id="spans"></span>-->
+						</div>
+						<div class="form-group has-warning">
+							<label for="pwd" class="control-label">密码：</label>
+							<input type="password" id="pwd" name="userpass" class="form-control"
+								   placeholder="请输入密码"/>
+						</div>
+						<br>
+						<div class="row">
+						<input type="button" class="btn btn-primary col-md-2 col-md-offset-3" value="登录" id="denglu" />
+						<input type="button" value="注册" class="btn btn-warning col-md-2 col-md-offset-1" id="zhuce"/>
+						</div>
+
+					</fieldset>
+					</from>
+				</div>
+			</div>
+
+		</div>
+
+<script type="text/javascript">
+	$("#denglu").click(function () {
+		var username=$("#username").val();
+		var userpass=$("#pwd").val();
+		$.ajax({
+			url:"denglu.action",
+			async:true,
+			data:{"username":username,"userpass":userpass},//要发送的数据（参数）格式为{'val1':"1","val
+			success: function (data) {
+				if(data==1){
+					window.location.href="index.jsp";
+				}else if(data==0){
+					alert("登录失败")
+				}
+			}
+		})
+	})
+	$("#zhuce").click(function () {
+
+	})
+	  /*  var materialInputs = $('#spans');
+
+    // activate labels for prefilled values
+    materialInputs.filter(function() { 
+    	return $(this).val() !== ""; }).siblings('.label-material').addClass('active');
+
+    // move label on focus
+    materialInputs.on('focus', function () {
+        $(this).siblings('.label-material').addClass('active');
+    });
+
+    // remove/keep label on blur
+    materialInputs.on('blur', function () {
+        $(this).siblings('.label-material').removeClass('active');
+
+        if ($(this).val() !== '') {
+            $(this).siblings('.label-material').addClass('active');
+        } else {
+            $(this).siblings('.label-material').removeClass('active');
+        }
+    });*/
+</script>
+	</body>
+</html>

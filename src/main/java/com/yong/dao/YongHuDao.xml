@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--  配置为包名+接口名  实现 代理模式
+  接口中 每一个方法  都与  标签的id对应
+-->
+<mapper namespace="com.yong.dao.YongHuDao">
+    <select id="alllist" parameterType="yonghu"  resultType="yonghu">
+        select * from yonghu
+        <where>
+            <if test="yonghuname!=null"> and yonghuname like concat('%',#{yonghuname},'%') </if>
+            <if test="phone!=null"> and phone like concat('%',#{phone},'%') </if>
+        </where>
+    </select>
+
+    <select id="countall" parameterType="yonghu"  resultType="int">
+        select count(*) from yonghu
+        <where>
+            <if test="yonghuname!=null"> and yonghuname like concat('%',#{yonghuname},'%') </if>
+            <if test="phone!=null"> and phone like concat('%',#{phone},'%') </if>
+        </where>
+    </select>
+    <delete id="delyonghu" parameterType="int">
+        delete  from yonghu where yid=#{yid}
+    </delete>
+    <insert id="addyonghu" parameterType="yonghu">
+        INSERT INTO yonghu
+	(yonghuname, sex, birthday, phone)
+	VALUES(#{yonghuname}, #{sex}, #{birthday}, #{phone});
+    </insert>
+
+
+    <select id="getid" parameterType="int" resultType="yonghu">
+        select  * from yonghu where yid=#{yid}
+    </select>
+    <update id="updata" parameterType="yonghu">
+        UPDATE yonghu
+	SET yonghuname = #{yonghuname} , sex = #{sex} , birthday = #{birthday} , phone = #{phone}
+	WHERE yid = #{yid} ;
+    </update>
+
+    <select id="selectsex" resultType="string">
+        select sex from yonghu
+        group by sex
+    </select>
+    <select id="selectnumber" parameterType="String" resultType="int">
+        select count(*) from yonghu where sex=#{sex}
+    </select>
+</mapper>
